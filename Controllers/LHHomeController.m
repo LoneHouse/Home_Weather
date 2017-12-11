@@ -1,0 +1,37 @@
+//
+//  LHHomeViewController.m
+//  Home_Weather
+//
+//  Created by Victor Privalov on 12/11/17.
+//  Copyright © 2017 Victor Privalov. All rights reserved.
+//
+
+#import "LHHomeController.h"
+
+@interface LHHomeController ()
+
+@end
+
+@implementation LHHomeController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
