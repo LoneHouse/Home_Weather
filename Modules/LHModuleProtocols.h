@@ -9,7 +9,8 @@
 #ifndef LHModuleProtocols_h
 #define LHModuleProtocols_h
 
-@class LHWeatherModule;
+@class LHWeatherProvider;
+@class LHSideMenu;
 
 @protocol LHStartable
 
@@ -20,7 +21,8 @@
 
 @protocol LHModuleProvider
 
-@property (nonatomic, readonly) LHWeatherModule *weather;
+@property (nonatomic, readonly) LHWeatherProvider *weather;
+@property (nonatomic, readonly) LHSideMenu *sideMenu;
 
 @end
 

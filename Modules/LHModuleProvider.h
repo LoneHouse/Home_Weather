@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "LHModuleProtocols.h"
+#import "LHWeatherProvider.h"
+#import "LHSideMenu.h"
 
 @interface LHModuleProvider : NSObject <LHModuleProvider>
+
++ (instancetype)sharedProvider;
 
 @end

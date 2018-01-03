@@ -7,16 +7,43 @@
 //
 
 #import "LHHomeController.h"
+#import "LHModuleProvider.h"
 
 @interface LHHomeController ()
+
+@property (nonatomic, weak) LHWeatherProvider *weather;
+@property (nonatomic, strong) LHWeatherModel *model;
+
+@property (weak, nonatomic) IBOutlet UILabel *labelCityName;
+@property (weak, nonatomic) IBOutlet UILabel *labelTempValue;
+@property (weak, nonatomic) IBOutlet UILabel *labelHumidityValue;
+@property (weak, nonatomic) IBOutlet UILabel *labelPressureValue;
+
+- (IBAction)testAction:(UIButton *)sender;
+
 
 @end
 
 @implementation LHHomeController
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.weather = [LHModuleProvider sharedProvider].weather;
+        [self.weather weatherForCurrentLocation:^(LHWeatherModel *result) {
+            self.model = result;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupView:result];
+            });
+        }];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupView:self.model];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +51,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Data Model
+
+- (void)setupView:(LHWeatherModel *)model
+{
+    if (!self.isViewLoaded || !model) {
+        return;
+    }
+    self.labelCityName .text     = model.name;
+    self.labelTempValue.text     = model.temperature.stringValue;
+    self.labelHumidityValue.text = model.humidity.stringValue;
+    self.labelPressureValue.text = model.pressure.stringValue;
 }
-*/
 
+#pragma mark - IBActinos
+
+- (IBAction)testAction:(UIButton *)sender {
+    [[LHModuleProvider sharedProvider].sideMenu showMenu:YES animated:YES];
+}
 @end

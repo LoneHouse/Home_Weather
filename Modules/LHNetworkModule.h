@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface LHNetworkModule : NSObject
+typedef void (^NetworkResponseCallback)(NSData *, NSURLResponse *, NSURLRequest *, NSError *);
+
+@interface LHNetworkModule : NSObject <LHStartable>
+
+- (void)getWeatherInLocation:(CLLocation *)location withCompletionHandler:(NetworkResponseCallback)completion;
 
 @end

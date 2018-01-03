@@ -13,6 +13,7 @@
 @interface LHLocationModule () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLGeocoder *geocoder;
 @property (nonatomic, assign) CLAuthorizationStatus authStatus;
 
 @property (nonatomic, strong) CLLocation *defaultLocation;
@@ -27,6 +28,8 @@
     if (self) {
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
+        
+        self.geocoder = [[CLGeocoder alloc] init];
     }
     return self;
 }
@@ -81,6 +84,19 @@
 {
     
 }
+
+#pragma mark - CLGeocoder
+
+- (void)placemarkOfLocation:(CLLocation * _Nonnull)location handler:(void(^)(CLPlacemark *, NSError *))handler
+{
+    [self.geocoder reverseGeocodeLocation:location completionHandler:
+     ^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+         if (handler) {
+             handler(placemarks.firstObject, error);
+         }
+     }];
+}
+
 
 #pragma mark - CLLocationManagerDelegate
 

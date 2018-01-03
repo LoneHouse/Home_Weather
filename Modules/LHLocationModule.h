@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "LHModuleProtocols.h"
 
 @interface LHLocationModule : NSObject <LHStartable>
 

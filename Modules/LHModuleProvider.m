@@ -7,19 +7,38 @@
 //
 
 #import "LHModuleProvider.h"
-#import "LHWeatherModule.h"
+
 
 @implementation LHModuleProvider
 
-@synthesize weather;
+@synthesize weather, sideMenu;
+
++ (instancetype)sharedProvider
+{
+    static LHModuleProvider * sharedProvider;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedProvider = [[LHModuleProvider alloc] init];
+    });
+    return sharedProvider;
+}
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        weather = [[LHWeatherModule alloc] init];
+        weather = [[LHWeatherProvider alloc] init];
+        [weather start];
     }
     return self;
+}
+
+-(LHSideMenu *)sideMenu
+{
+    if (!sideMenu) {
+        sideMenu = [[LHSideMenu alloc] init];
+    }
+    return sideMenu;
 }
 
 @end

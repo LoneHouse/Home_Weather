@@ -1,5 +1,5 @@
 //
-//  LHWeatherModule.h
+//  LHWeatherProvider.h
 //  Home_Weather
 //
 //  Created by Victor Privalov on 12/11/17.
@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LHWeatherModel.h"
 
-#import "LHModuleProtocols.h"
-
-@interface LHWeatherModule : NSObject <LHStartable>
-
+@interface LHWeatherProvider : NSObject <LHStartable>
+- (void)weatherForCurrentLocation:(void(^)(id))handler;
 @end
